@@ -12,7 +12,11 @@ include_directories(
 
 add_library(${PROJECT_NAME} SHARED
     src/main.cpp
- "src/structs.h" "src/DeveloperNode.h" "src/DeveloperNode.cpp" "src/DevelopersPopup.cpp" "src/DevelopersPopup.h" "src/SocialNetworkButton.cpp" "src/DevelopersPageManager.cpp" "src/DevelopersPageManager.h")
+    src/DeveloperNode.cpp 
+    src/DevelopersPopup.cpp
+    src/SocialNetworkButton.cpp
+    src/DevelopersPageManager.cpp
+)
 
 if (NOT DEFINED ENV{GEODE_SDK})
     message(FATAL_ERROR "Unable to find Geode SDK! Please define GEODE_SDK environment variable to point to Geode")
