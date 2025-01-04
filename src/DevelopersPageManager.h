@@ -9,7 +9,8 @@ class DevelopersPageManager {
 		OK,
 		FileNotFound,
 		ParsingError,
-		TooManyButtons
+		TooManyButtons,
+		InvalidUrl
 	};
 
 	std::vector<DeveloperData*> data;
@@ -18,6 +19,7 @@ class DevelopersPageManager {
 
 	void init();
 
+	bool isValidURL(const std::string& url);
 	DataLoadingResult loadData();
 
 	DevelopersPageManager() {};

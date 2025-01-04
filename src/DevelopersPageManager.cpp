@@ -6,6 +6,11 @@ void DevelopersPageManager::init() {
 	loadingStatus = loadData();
 }
 
+bool DevelopersPageManager::isValidURL(const std::string& url) {
+	std::regex url_regex(R"(^https?://)");
+	return std::regex_search(url, url_regex);
+}
+
 DevelopersPageManager::DataLoadingResult DevelopersPageManager::loadData() {
 
 	std::ifstream file("Resources/devPanel.json");
@@ -33,7 +38,7 @@ DevelopersPageManager::DataLoadingResult DevelopersPageManager::loadData() {
 
 
 			auto buttons = developer["buttons"];
-
+			if (buttons.size() > 6) return TooManyButtons;
 			for (auto btn : buttons) {
 				if (!btn.contains("texture") || !btn["texture"].is_string()
 					|| !btn.contains("link") || !btn["link"].is_string()) return ParsingError;
@@ -41,6 +46,7 @@ DevelopersPageManager::DataLoadingResult DevelopersPageManager::loadData() {
 				auto socialNetworkData = new DeveloperSocialNetworkData;
 				socialNetworkData->texture = btn["texture"];
 				socialNetworkData->link = btn["link"];
+				if (!isValidURL(socialNetworkData->link)) return InvalidUrl;
 
 				developerData->socialNetworks.push_back(socialNetworkData);
 			}
@@ -64,14 +70,17 @@ void DevelopersPageManager::onMenuLayer(MenuLayer* layer) {
 
 		std::string errorText;
 		switch (loadingStatus) {
-		case DevelopersPageManager::FileNotFound:
+		case FileNotFound:
 			errorText = "Can't find 'devPanel.json' in ./Resources";
 			break;
-		case DevelopersPageManager::ParsingError:
+		case ParsingError:
 			errorText = "Can't parse 'devPanel.json'";
 			break;
-		case DevelopersPageManager::TooManyButtons:
+		case TooManyButtons:
 			errorText = "Too many buttons in 'devPanel.json'";
+			break;
+		case InvalidUrl:
+			errorText = "Links for buttons should start with 'http://' or 'https://' in 'devPanel.json'";
 			break;
 		}
 

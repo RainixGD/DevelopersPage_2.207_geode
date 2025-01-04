@@ -31,6 +31,7 @@ bool DeveloperNode::init(DeveloperData* devData) {
 		auto socialNetworkBtnSprite = CCSprite::create(socialNetwork->texture.c_str());
 		if (socialNetworkBtnSprite == NULL)
 			socialNetworkBtnSprite = CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png");
+		socialNetworkBtnSprite->setContentSize({ 30.5, 30.5 });
 		auto devBtn = SocialNetworkButton::create(socialNetworkBtnSprite, socialNetwork->link);
 		menu->addChild(devBtn);
 	}
