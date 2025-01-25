@@ -16,6 +16,8 @@ add_library(${PROJECT_NAME} SHARED
     src/DevelopersPopup.cpp
     src/SocialNetworkButton.cpp
     src/DevelopersPageManager.cpp
+    src/ErrorsManager/ErrorsManager.cpp
+    src/ErrorsManager/ErrorsPopup.cpp
 )
 
 if (NOT DEFINED ENV{GEODE_SDK})

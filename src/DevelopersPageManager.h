@@ -5,22 +5,16 @@ struct DeveloperData;
 
 class DevelopersPageManager {
 
-	enum DataLoadingResult {
-		OK,
-		FileNotFound,
-		ParsingError,
-		TooManyButtons,
-		InvalidUrl
-	};
+	bool isOk;
 
 	std::vector<DeveloperData*> data;
-	DataLoadingResult loadingStatus;
 	static DevelopersPageManager* instance;
 
 	void init();
 
 	bool isValidURL(const std::string& url);
-	DataLoadingResult loadData();
+	bool hasFileExtension(const std::string& fileName, const std::string& extension);
+	bool loadData();
 
 	DevelopersPageManager() {};
 public:
